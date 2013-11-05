@@ -71,9 +71,16 @@ angular.module('ui.date', [])
           // Force a render to override whatever is in the input text box
           controller.$render();
         }
+        
+
       };
       // Watch for changes to the directives options
       scope.$watch(getOptions, initDateWidget, true);
+      
+      //Cleanup on destroy, prevents some memory leaking
+    		element.on("$destroy", function () {
+    				element.datepicker("destroy");
+ 				 });
     }
   };
 }
