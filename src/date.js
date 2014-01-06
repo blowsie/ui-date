@@ -17,7 +17,7 @@ angular.module('ui.date', [])
   angular.extend(options, uiDateConfig);
   return {
     require:'?ngModel',
-    link:function (scope, element, attrs, controller) {
+    link:['$scope', '$element', '$attrs', '$ctrl', function (scope, element, attrs, controller) {
       var getOptions = function () {
         return angular.extend({}, uiDateConfig, scope.$eval(attrs.uiDate));
       };
@@ -74,7 +74,7 @@ angular.module('ui.date', [])
       };
       // Watch for changes to the directives options
       scope.$watch(getOptions, initDateWidget, true);
-    }
+    }]
   };
 }
 ])
@@ -84,7 +84,7 @@ angular.module('ui.date', [])
 .directive('uiDateFormat', ['uiDateFormatConfig', function(uiDateFormatConfig) {
   var directive = {
     require:'ngModel',
-    link: function(scope, element, attrs, modelCtrl) {
+    link:['$scope', '$element', '$attrs', '$ctrl', function(scope, element, attrs, modelCtrl) {
       var dateFormat = attrs.uiDateFormat || uiDateFormatConfig;
       if ( dateFormat ) {
         // Use the datepicker with the attribute value as the dateFormat string to convert to and from a string
@@ -115,7 +115,7 @@ angular.module('ui.date', [])
           return null;
         });
       }
-    }
+    }]
   };
   return directive;
 }]);
